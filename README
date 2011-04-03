@@ -1,0 +1,29 @@
+Django TinyMCE filebrowser is a simple and flexible tool for managing your files and images from tinymce editor.
+
+Installation:
+
+1) Add mce_filebrowser to Your Python path
+2) Add "mce_filebrowser" to INSTALLED_APPS of existing django project
+3) Add configuration option `file_browser_callback` to your TinyMCE init:
+	tinyMCE.init({
+			...
+			file_browser_callback : "mce_filebrowser"
+	});
+	
+	Or if you use djang-tinymce specify this option in your settings:
+	
+	TINYMCE_DEFAULT_CONFIG = {
+		...
+		'file_browser_callback': 'mce_filebrowser'
+	}
+	
+4) Make css file visible from your project
+5) Run python manage.py syncdb
+
+Important notes:
+
+1) To correctly show the filebrowser you need to install sorl.thumbnail application.
+For more details visit http://thumbnail.sorl.net
+
+2) Your tinyMCE installation must be on current path: MEDIA_URL + js/tiny_mce, 
+if not please setup correct path for <script> tags in mce_filebrowser/templates/filebrowser.html

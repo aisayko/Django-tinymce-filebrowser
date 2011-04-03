@@ -3,7 +3,7 @@ from django.utils.translation import ugettext as _
 
 
 class FileBrowserFile(models.Model):
-    """ Docstring """
+    """ Uploaded file model """
     FILE_TYPES = (
         ('img', _('Image')),
         ('doc', _('Document')),

@@ -4,7 +4,7 @@ from mce_filebrowser.models import FileBrowserFile
 
 
 class FileUploadForm(forms.ModelForm):
-    """ Docstring """
+    """ File/Image Upload form """
     class Meta:
         model = FileBrowserFile
         fields = ('uploaded_file',)

@@ -11,7 +11,7 @@ from mce_filebrowser.forms import FileUploadForm
 
 @staff_member_required
 def filebrowser(request, file_type):
-    """ Docstring """
+    """ Trigger view for filebrowser """
     template = 'mce_filebrowser/filebrowser.html'
     upload_form = FileUploadForm()
     uploaded_file = None
@@ -44,7 +44,7 @@ def filebrowser(request, file_type):
 
 @staff_member_required
 def filebrowser_remove_file(request, item_id, file_type):
-    """ Docstring """
+    """ Remove file """
     fobj = get_object_or_404(FileBrowserFile, file_type=file_type, id=item_id)
     fobj.delete()
     
