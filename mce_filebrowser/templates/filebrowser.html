@@ -1,0 +1,147 @@
+{% load i18n thumbnail %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{% trans "File browser" %}</title>
+	<link rel="stylesheet" href="{{ MEDIA_URL }}css/mce_filebrowser.css" type="text/css" media="screen, projection" />
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/tiny_mce/tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/tiny_mce/utils/mctabs.js"></script>
+	<script language="javascript" type="text/javascript">
+		function make_file_insertion() {
+			var URL = document.upload_form.selected_file.value;
+			var win = tinyMCEPopup.getWindowArg("window");
+			
+			win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = URL;
+			
+			if (typeof(win.ImageDialog) != "undefined") {
+				if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
+				if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(URL);
+			}
+			
+			tinyMCEPopup.close();
+		}
+		
+		var FileBrowserDialogue = {
+			init: function () {
+				
+			},
+			image_select: function () {
+				if(document.getElementById("upload_tab").className == 'current') {
+					document.upload_form.submit();
+				} else {
+					make_file_insertion();
+				}
+			},
+			file_in_use: function (elem) {
+				if(elem) {
+					var li_elems = document.getElementsByTagName("li");
+					
+					for(var i = 0; i<li_elems.length; i++){
+						li_elems[i].style.background = '';
+					}
+					
+					elem.parentNode.style.background = 'Blue';
+					document.upload_form.selected_file.value = elem.attributes.getNamedItem("href").value;
+				}
+				return false;
+			},
+			insert_uploaded_file: function (path) {
+				make_file_insertion();
+			}
+		}
+
+		tinyMCEPopup.onInit.add(FileBrowserDialogue.init, FileBrowserDialogue);
+	</script>
+</head>
+<body id="filebrowser" onload="{% if uploaded_file %}FileBrowserDialogue.insert_uploaded_file();{% endif %}">
+	<div class="tabs">
+		<ul>
+			{% if is_images_dialog %}
+				<li id="images_tab" class="{% if not upload_tab_active %}current{% endif %}">
+					<span>
+						<a href="javascript:mcTabs.displayTab('images_tab','images_panel');" onmousedown="return false;">
+							{% trans "Images list" %}
+						</a>
+					</span>
+				</li>
+			{% endif %}
+			{% if is_documents_dialog %}
+				<li id="documents_tab" class="{% if not upload_tab_active %}current{% endif %}">
+					<span>
+						<a href="javascript:mcTabs.displayTab('documents_tab','documents_panel');" onmousedown="return false;">
+							{% trans "Documents list" %}
+						</a>
+					</span>
+				</li>
+			{% endif %}
+			<li id="upload_tab" class="{% if upload_tab_active %}current{% endif %}">
+				<span>
+					<a href="javascript:mcTabs.displayTab('upload_tab','upload_panel');" onmousedown="return false;">{% trans "Upload new" %}</a>
+				</span>
+			</li>
+		</ul>
+	</div>
+	<form action="./" method="post" enctype="multipart/form-data" name="upload_form">
+		{% csrf_token %}
+		<div class="panel_wrapper">
+			{% if is_images_dialog %}
+				<div id="images_panel" class="panel{% if not upload_tab_active %} current{% endif %}">
+					<fieldset>
+						<legend>{% trans "Previosly uploaded images" %}</legend>
+						{% if files %}
+							<ul class="images_list">
+								{% for img in files %}
+									<li>
+										{% thumbnail  img.uploaded_file "100x100" crop="80% center" as im %}
+											<a href="{{ img.uploaded_file.url }}" onClick="FileBrowserDialogue.file_in_use(this);return false;">
+												<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" border="0" />
+											</a>
+										{% endthumbnail %}
+										<a href="{% url mce-filebrowser-remove-image img.id %}" title="{% trans 'Remove' %}" class="rm">x</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% else %}
+							<p>{% trans "No images uploaded" %}</p>
+						{% endif %}
+					</fieldset>
+				</div>
+			{% endif %}
+			{% if is_documents_dialog %}
+				<div id="documents_panel" class="panel{% if not upload_tab_active %} current{% endif %}">
+					<fieldset>
+						<legend>{% trans "Previosly uploaded documents" %}</legend>
+						{% if files %}
+							<ul class="documents_list">
+								{% for doc in files %}
+									<li>
+										<a href="{{ doc.uploaded_file.url }}" onClick="FileBrowserDialogue.file_in_use(this);return false;">
+											{{ doc }}
+										</a>&nbsp;
+										<a href="{% url mce-filebrowser-remove-document doc.id %}" title="{% trans 'Remove' %}" class="rm">x</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% else %}
+							<p>{% trans "No documents uploaded" %}</p>
+						{% endif %}
+					</fieldset>
+				</div>
+			{% endif %}
+			<div id="upload_panel" class="panel{% if upload_tab_active %} current{% endif %}">
+				<fieldset>
+					<legend>
+						{% trans "Upload file" %}
+					</legend>
+					{{ upload_form }}
+				</fieldset>
+			</div>
+		</div>
+		<div class="mceActionPanel">
+			<input type="button" id="insert" value="{% trans 'Insert' %}" onClick="FileBrowserDialogue.image_select();" />
+			<input type="button" id="cancel" value="{% trans 'Cancel' %}" onclick="tinyMCEPopup.close();" />
+		</div>
+		<input type="hidden" name="selected_file" value="{% if uploaded_file %}{{ uploaded_file.uploaded_file.url }}{% endif %}" />
+	</form>
+</body> 
+</html>
