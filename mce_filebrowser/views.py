@@ -12,7 +12,7 @@ from mce_filebrowser.forms import FileUploadForm
 @staff_member_required
 def filebrowser(request, file_type):
     """ Trigger view for filebrowser """
-    template = 'mce_filebrowser/filebrowser.html'
+    template = 'filebrowser.html'
     upload_form = FileUploadForm()
     uploaded_file = None
     upload_tab_active = False

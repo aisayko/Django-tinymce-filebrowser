@@ -11,7 +11,7 @@ class FileBrowserFile(models.Model):
     
     file_type = models.CharField(max_length=3, choices=FILE_TYPES)
     uploaded_file = models.FileField(
-        upload_to='uploads/mce_filebrowser/%Y/%m/%d',
+        upload_to='mce_filebrowser/%Y/%m/%d',
         verbose_name = _('File / Image')
     )
     create_date = models.DateTimeField(
