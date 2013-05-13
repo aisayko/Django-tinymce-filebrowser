@@ -15,7 +15,7 @@ Add tinymce and mce_filebrowser to INSTALLED_APPS in settings.py for your projec
     INSTALLED_APPS = (
         ...
         'tinymce',
-        'mce_filebrowsser',
+        'mce_filebrowser',
     )
     
 Change tinymce config to work with filebrowser:
