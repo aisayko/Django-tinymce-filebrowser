@@ -6,7 +6,7 @@ django-tinymce-filebrowser
 Quickstart:
 ===
 
-Install django-tinymce:
+Install django-tinymce-filebrowser:
 
     $ pip install django-tinymce-filebrowser
 
@@ -17,6 +17,12 @@ Add tinymce and mce_filebrowser to INSTALLED_APPS in settings.py for your projec
         'tinymce',
         'mce_filebrowsser',
     )
+    
+Change tinymce config to work with filebrowser:
+
+    TINYMCE_DEFAULT_CONFIG = {
+      'file_browser_callback': 'mce_filebrowser'
+    }
 
 Add mce_filebrowser.urls to urls.py for your project:
 
@@ -49,3 +55,10 @@ In your admin.py:
 
 **django-tinymce-filebrowser** uses django staticfiles.
 
+
+If You not use django-tinymce package then add next lines to TinyMCE init:
+
+    tinyMCE.init({
+        ...
+        "file_browser_callback": "mce_filebrowser"
+    })
