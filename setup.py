@@ -9,7 +9,7 @@ from setuptools import setup
 
 
 setup(
-    name='Django-tinymce-filebrowser',
+    name='mce_filebrowser',
     version='0.1.1',
     url='https://github.com/aisayko/Django-tinymce-filebrowser',
     license='MIT License',
