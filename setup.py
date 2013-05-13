@@ -18,7 +18,8 @@ setup(
     description='Django-based file uploader and viewer for TinyMCE',
     keywords = "django tinymce fileupload",
     long_description=__doc__,
-    packages = find_packages(),
+    packages=find_packages(),
+    include_package_data=True,
     zip_safe=False,
     platforms='any',
     install_requires=[
