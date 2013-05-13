@@ -42,21 +42,20 @@ In your models.py code:
         content = HTMLField()
         
 In your admin.py:
+
     from django.contrib import admin
     from myapp.models import MyModel
     from mce_filebrowser.admin import MCEFilebrowserAdmin
 
-
     class MyModelAdmin(MCEFilebrowserAdmin):
         pass
-
 
     admin.site.register(MyModel, MyModelAdmin)
 
 **django-tinymce-filebrowser** uses django staticfiles.
 
 
-If You not use django-tinymce package then add next lines to TinyMCE init:
+If You do not use django-tinymce package then add next lines to TinyMCE init:
 
     tinyMCE.init({
         ...
