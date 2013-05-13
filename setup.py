@@ -5,11 +5,11 @@ Django-tinymce-filebrowser
 Simple django-based file uploader and viewer for TinyMCE
 
 """
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
-    name='mce_filebrowser',
+    name='Django-tinymce-filebrowser',
     version='0.1.1',
     url='https://github.com/aisayko/Django-tinymce-filebrowser',
     license='MIT License',
@@ -18,6 +18,7 @@ setup(
     description='Django-based file uploader and viewer for TinyMCE',
     keywords = "django tinymce fileupload",
     long_description=__doc__,
+    packages = find_packages(),
     zip_safe=False,
     platforms='any',
     install_requires=[
