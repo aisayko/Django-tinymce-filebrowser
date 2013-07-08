@@ -11,10 +11,12 @@ Install django-tinymce-filebrowser:
     $ pip install django-tinymce-filebrowser
 
 Add tinymce and mce_filebrowser to INSTALLED_APPS in settings.py for your project:
+Note: sorl.thumbnail is required package for correct filebrowser work.
 
     INSTALLED_APPS = (
         ...
         'tinymce',
+        'sorl.thumbnail',
         'mce_filebrowser',
     )
     
