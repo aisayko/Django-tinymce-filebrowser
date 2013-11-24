@@ -3,6 +3,8 @@ django-tinymce-filebrowser
 
 **django-tinymce-filebrowser** is a simple and flexible tool for managing your files and images from TinyMCE editor.
 
+Current version of package support only TinyMCE 3.x versions.
+
 Quickstart:
 ===
 
