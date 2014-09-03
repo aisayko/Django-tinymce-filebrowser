@@ -66,6 +66,11 @@ If You do not use django-tinymce package then add next lines to TinyMCE init:
         ...
         "file_browser_callback": "mce_filebrowser"
     })
+    
+
+Additional settings:
+
+    FILEBROWSER_PER_PAGE - files per page in filebrowser
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aisayko/django-tinymce-filebrowser/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

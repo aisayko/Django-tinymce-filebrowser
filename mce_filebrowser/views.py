@@ -39,7 +39,7 @@ def filebrowser(request, file_type):
         'is_images_dialog': is_images_dialog,
         'is_documents_dialog': is_documents_dialog
     }
-    per_page = getattr(settings, 'FILEBROWSER_PER_PAGE', 2)
+    per_page = getattr(settings, 'FILEBROWSER_PER_PAGE', 20)
     return render_paginate(request, template, files, per_page, data)
 
 
