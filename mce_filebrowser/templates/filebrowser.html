@@ -89,9 +89,9 @@
         <div id="images_panel" class="panel{% if not upload_tab_active %} current{% endif %}">
           <fieldset>
             <legend>{% trans "Previosly uploaded images" %}</legend>
-            {% if files %}
+            {% if object_list %}
               <ul class="images_list">
-                {% for img in files %}
+                {% for img in object_list %}
                   <li>
                     {% thumbnail img.uploaded_file "100x100" crop="center" as im %}
                       <a href="{{ img.uploaded_file.url }}" onClick="FileBrowserDialogue.file_in_use(this);return false;">
@@ -106,15 +106,16 @@
               <p>{% trans "No images uploaded" %}</p>
             {% endif %}
           </fieldset>
+          {% include "_paginator.html" %}
         </div>
       {% endif %}
       {% if is_documents_dialog %}
         <div id="documents_panel" class="panel{% if not upload_tab_active %} current{% endif %}">
           <fieldset>
             <legend>{% trans "Previosly uploaded documents" %}</legend>
-            {% if files %}
+            {% if object_list %}
               <ul class="documents_list">
-                {% for doc in files %}
+                {% for doc in object_list %}
                   <li>
                     <a href="{{ doc.uploaded_file.url }}" onClick="FileBrowserDialogue.file_in_use(this);return false;">
                       {{ doc }}
@@ -127,6 +128,7 @@
               <p>{% trans "No documents uploaded" %}</p>
             {% endif %}
           </fieldset>
+          {% include "_paginator.html" %}
         </div>
       {% endif %}
       <div id="upload_panel" class="panel{% if upload_tab_active %} current{% endif %}">

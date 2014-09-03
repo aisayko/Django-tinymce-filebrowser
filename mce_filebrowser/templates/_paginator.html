@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% if is_paginated %}
+    <div class="pager">
+        <a class="previous{% if not page_obj.has_previous %} disabled{% endif %}" 
+           href="{% if page_obj.has_previous %}./?page={{ page_obj.previous_page_number }}&{{ get_params }}{% else %}#{% endif %}">
+            &larr; {% trans "Previous" %}
+        </a>
+        <a class="next{% if not page_obj.has_next %} disabled{% endif %}"
+           href="{% if page_obj.has_next %}./?page={{ page_obj.next_page_number }}&{{ get_params }}{% else %}#{% endif %}">
+            &rarr; {% trans "Next" %}
+        </a>
+    </div>
+{% endif %}
