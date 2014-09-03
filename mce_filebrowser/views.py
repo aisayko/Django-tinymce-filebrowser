@@ -1,12 +1,14 @@
+from django.conf import settings
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.contrib.admin.views.decorators import staff_member_required
 
 from mce_filebrowser.models import FileBrowserFile
 from mce_filebrowser.forms import FileUploadForm
+from mce_filebrowser.utils import render_paginate
 
 
 @staff_member_required
@@ -31,15 +33,14 @@ def filebrowser(request, file_type):
             uploaded_file.save()
     
     data = {
-        'files': files,
         'upload_form': upload_form,
         'uploaded_file': uploaded_file,
         'upload_tab_active': upload_tab_active,
         'is_images_dialog': is_images_dialog,
         'is_documents_dialog': is_documents_dialog
     }
-    
-    return render_to_response(template, data, RequestContext(request))
+    per_page = getattr(settings, 'FILEBROWSER_PER_PAGE', 2)
+    return render_paginate(request, template, files, per_page, data)
 
 
 @staff_member_required
