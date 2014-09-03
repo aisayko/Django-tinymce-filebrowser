@@ -89,7 +89,7 @@
         <div id="images_panel" class="panel{% if not upload_tab_active %} current{% endif %}">
           <fieldset>
             <legend>{% trans "Previosly uploaded images" %}</legend>
-            {% if files %}
+            {% if object_list %}
               <ul class="images_list">
                 {% for img in object_list %}
                   <li>
@@ -113,7 +113,7 @@
         <div id="documents_panel" class="panel{% if not upload_tab_active %} current{% endif %}">
           <fieldset>
             <legend>{% trans "Previosly uploaded documents" %}</legend>
-            {% if files %}
+            {% if object_list %}
               <ul class="documents_list">
                 {% for doc in object_list %}
                   <li>
