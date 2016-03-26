@@ -22,6 +22,10 @@ Add tinymce and mce_filebrowser to INSTALLED_APPS in settings.py for your projec
     )
 
 Note: sorl.thumbnail is required package for correct filebrowser work.
+
+Migrate django-tinymce-filebrowser models
+    
+    $ python manage.py migrate mce_filebrowser
     
 Change tinymce config to work with filebrowser:
 
@@ -31,11 +35,11 @@ Change tinymce config to work with filebrowser:
 
 Add mce_filebrowser.urls to urls.py for your project:
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         ...
-        (r'^tinymce/', include('tinymce.urls')),
-        (r'^mce_filebrowser/', include('mce_filebrowser.urls')),
-    )
+        url(r'^tinymce/', include('tinymce.urls')),
+        url(r'^mce_filebrowser/', include('mce_filebrowser.urls')),
+    ]
 
 In your models.py code:
 
