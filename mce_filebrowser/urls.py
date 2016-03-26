@@ -1,7 +1,7 @@
 try:
     from django.conf.urls.defaults import url
 except ImportError:
-    from django.conf.urls import url
+    from django.conf.urls import  url
 
 from mce_filebrowser import views
 
@@ -27,4 +27,5 @@ urlpatterns = [
         {'file_type': 'doc'},
         name='mce-filebrowser-remove-document'
     )
+
 ]
