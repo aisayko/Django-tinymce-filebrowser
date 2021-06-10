@@ -1,4 +1,4 @@
-django==1.5.1
+django==2.2.24
 django-tinymce
 sorl-thumbnail
 Pillow==2.0.0
